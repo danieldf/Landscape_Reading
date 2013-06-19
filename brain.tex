@@ -1,0 +1,314 @@
+%%%
+% BeGiN
+% Wed 19 Jun 2013 14:06:02 EDT
+%%%
+%% Presentation make-shift "class"...
+% The paper and font size are chosen as with the 'Beamer' document
+% class :: these sizes can be adjusted for various projector
+% capabilities, including:
+%   (*) 144mm:90mm (16:10),
+%   (*) 120mm:96mm (16:9),
+%   (*) 160mm:90mm (HDTV 720p/i),
+%   (*) 192mm:108mm (HDTV 1080p/i), &
+%   (*) 128mm:96mm (Beamer's default).
+%   (*) 216mm:279mm (ANSI A papersize, aka 'letter')
+\documentclass[       %
+  paper=279mm:216mm,  % 'letter' size paper, landscape mode
+  fontsize=12pt,      % 12pt font selection
+  twoside,
+  pagesize=auto,           % write page size to dvi or pdf
+  version=last,
+  numbers=noendperiod,% removes points for special parts (e.g. appendix)
+  captions=nooneline, % do not distinguish between one or more lines in captions
+  DIV=calc
+]{scrartcl}
+\usepackage{scrpage2}
+\setkomafont{pagehead}{\normalfont\footnotesize\sffamily\bfseries}
+\setkomafont{pagenumber}{\normalfont\footnotesize\sffamily\bfseries}
+\deftripstyle{CPI}[0pt][0.5pt]{\rightmark}{}{\thepage}{}{}{}
+\pagestyle{CPI}
+\typearea[current]{calc}
+\areaset[current]{\textwidth}{\textheight}
+\usepackage{multicol}   % better column-balancing
+\setlength{\columnsep}{1cm}
+\setlength{\columnseprule}{0.4pt}
+\setlength{\topmargin}{-2cm}
+\setlength{\oddsidemargin}{0cm}
+\setlength{\evensidemargin}{\oddsidemargin}
+%
+\usepackage{cmap}
+\usepackage{datetime}
+\renewcommand{\dateseparator}{-}
+\settimeformat{hhmmsstime}
+\newcommand{\todayiso}{\the\year \dateseparator \shortmonthname \dateseparator \twodigit\day}
+\newcommand{\semver}{[DDF \href{http://semver.org/}{v1.0.0}]}
+\usepackage{ae,aecompl,aeguill}
+\usepackage{fix-cm}
+\usepackage{lmodern}         % latin modern font
+\usepackage[T1]{fontenc} % for correct hyphenation and T1 encoding
+\usepackage[protrusion=true,expansion=false]{microtype} % for character protrusion and font expansion (only with pdflatex)
+\usepackage[raise]{engord}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[x11names]{xcolor}
+\usepackage{graphicx}
+\usepackage{csquotes} % for inline quotations
+\usepackage{ccicons}  % for CC licenses
+\usepackage{tikz}     % sophisticated graphics package
+\usepackage{mathtools}
+\usepackage{dsfont,amstext,amssymb,amsbsy,amsopn,amsthm}
+\usepackage[charter]{mathdesign}
+\renewcommand{\sfdefault}{fvs}
+\renewcommand{\ttdefault}{fvm}
+\DeclareMathAlphabet{\mathpzc}{T1}{pzc}{m}{it}   % $\mathpzc{F}$
+% \usepackage{bm}       % for bold math symbols
+\usepackage{eucal}
+\usepackage{empheq}
+\usepackage{pifont}
+\usepackage{textcomp}
+\usepackage{wasysym}
+\usepackage{calc}  % working with lengths, counters etc.
+\usepackage[       %
+  includeheadfoot, %
+  vmargin=1cm,     %
+  hmargin=2cm      %
+]{geometry}        % set page layout parameters
+\usepackage[3D]{movie15}
+\usepackage{xkeyval}
+\usepackage{lipsum}     % just some lorem-ipsum text filling
+\usepackage{fancyvrb}
+\usepackage[colorlinks=true,urlcolor=RoyalBlue3,linkcolor=OrangeRed3,citecolor=SpringGreen3,linktocpage=true]{hyperref}
+\hypersetup{
+  pdftitle    = {Digital Reading: two-column landscape format using KOMA scripts},
+  pdfauthor   = {D.D. Ferrante <danieldf@het.brown.edu>},
+  pdfsubject  = {eReading},
+  pdfcreator  = {LaTeX2e with hyperref package},
+  pdfproducer = {pdflatex},
+  pdfkeywords = {Open Access, Open, Access, eReader, Digital, Reading, Online, LaTeX, KOMA},
+  pdfview = {FitH},
+  pdflang = {en_US}
+}
+\usepackage{bookmark}
+\usepackage{cite}
+%
+%% extensible `=' sign ::  \stakrel{\text{definition}}{\hbox{\equalsfill}}
+\makeatletter
+\def\equalsfill{$\m@th\mathord=\mkern-7mu
+  \cleaders\hbox{$\!\mathord=\!$}\hfill
+  \mkern-7mu\mathord=$}
+\makeatother
+%% Hooked Square Root sign...
+\def\hksqrt{\mathpalette\DHLhksqrt}
+\def\DHLhksqrt#1#2{\setbox0=\hbox{$#1\sqrt{#2\,}$}\dimen0=\ht0
+  \advance\dimen0-0.2\ht0
+  \setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+{\box0\lower0.4pt\box2}}
+%
+\title{Online Reading: two-column landscape format using KOMA-scripts}
+\author{\sffamily Daniel D. Ferrante\footnote{
+  \href{http://www.het.brown.edu/people/danieldf/}{\copyright}\; \semver\,,\;
+  \href{http://creativecommons.org/licenses/by-nc-sa/3.0/}{\ccbyncsa}\,.}}
+\date{\sffamily\todayiso}
+%
+%%
+\begin{document}
+%
+\maketitle
+%
+\begin{multicols}{2}
+  \tableofcontents
+
+
+  \section{Original Motivation}
+  The original motivation came from
+  ``\href{http://scholardox.wordpress.com/2013/05/29/two-column-landscape-should-be-the-standard-format-of-scholarly-online-articles/}
+    {\emph{Advocating two-column landscape format for scholarly online articles}}''.
+    
+  However, because of typographical issues, among some other, I personally prefer
+  to use the \href{http://www.ctan.org/pkg/koma-script}{KOMA-scripts}. Thus, I
+  just wrote a \LaTeX\/ template that suited me better.
+
+
+  \section{Text Example: \textit{Lorem Ipsum} and the Balancing of Columns}
+
+  \lipsum
+  
+
+  \section{Multimedia Example: 3D Object and Control Toolbar}
+
+  \includemovie[     %
+    poster,          %
+    toolbar,         % same as `controls'
+    label=brain.u3d, %
+    text=(brain.u3d),%
+    3Daac=60.000000, 3Droll=0.000000, 3Dc2c=-143.000000 -703.200012 -255.500000, 3Droo=761.721436, %
+    3Dcoo=-143.000000 101.000000 255.500000, 3Dlights=CAD %
+  ]{\linewidth}{\linewidth}{brain.u3d}
+  
+
+  \section{Some Itemized Equations for Good Measure, and Some Mathematical Fonts}
+
+  Before we proceed and show the code used to generate this file, let us create
+  a list with some equations, just to see how things turn out:
+  \begin{itemize}
+  \item Let us open up the first item in a very cliché fashion with an inline
+    equation: $E^2 = (m\, c^2)^2 + (p\, c)^2 \rightsquigarrow (\Box + m^2)\, \psi = 0$.
+  \item Now we can move on to something more interesting, \emph{e.g.},
+    \begin{align*}
+      \mathscr{Z}(J) &= \int e^{i\, S(\phi,\, J)}\, \mathcal{D}\phi \;;\\
+      \mathpzc{Z}{}_{\mathds{M}}[\mathfrak{J}]&= \varint_{\mathds{M}}
+        e^{i\, S[\boldsymbol{\Phi};\, \mathfrak{J}]}\, \mathpzc{D}\boldsymbol{\Phi}\;.
+    \end{align*}
+  \end{itemize}
+
+  
+  \section{Ti\emph{k}Z/PGF Example}
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\foreach \t in {0,0.1,...,.8} {
+\pgfmathsetmacro\x{6*\t^3 + 4 * 3 * \t^2*(1 - \t) + 2 * 3 * \t * (1 -\t)^2 + 0 * (1 - \t)^3}
+\pgfmathsetmacro\z{1*\t^3 + 1 * 3 * \t^2*(1 - \t) + -1 * 3 * \t * (1 -\t)^2 + -1 * (1 - \t)^3 + 2}
+\pgfmathsetmacro\tt{\t+.1}
+\pgfmathsetmacro\xx{6*\tt^3 + 4 * 3 * \tt^2*(1 - \tt) + 2 * 3 * \tt * (1 -\tt)^2 + 0 * (1 - \tt)^3}
+\pgfmathsetmacro\zz{1*\tt^3 + 1 * 3 * \tt^2*(1 - \tt) + -1 * 3 * \tt * (1 -\tt)^2 + -1 * (1 - \tt)^3 + 2}
+% If second control is relative, it is relative to second end point!
+\path[shade=axis, top color=green!50!black, bottom color=green!50!black, middle color=green]
+ (\xx,0,-\zz)
+ .. controls +(0,-.417,0) and +(0,.155,.387) ..
+ ++(0,-0.928,-0.629)
+ -- (\x, -0.928,-\z-.629)
+ .. controls +(0,.155,.387) and +(0,-.417,0) ..
+ ++(0,.928,.629)
+ .. controls +(0,.555,0) and +(0,0,.555) ..
+ ++(0,1,-1) 
+ .. controls +(0,0,-.139) and +(0,.0516,.129) ..
+ ++(0,-.072,-.371)
+ -- (\xx,0.928,-\zz-2+.629)
+ .. controls +(0,.0516,.129) and +(0,0,-.139) ..
+ ++(0,.072,.371)
+ .. controls +(0,0,.555) and +(0,.555,0) ..
+ ++(0,-1,1);
+
+\pgfmathsetmacro{\zz}{-\zz+2}
+\pgfmathsetmacro{\z}{-\z+2}
+\path[shade=axis, top color=green!50!black, bottom color=green!50!black, middle color=green]
+ (\xx,0,-\zz)
+ .. controls +(0,-.417,0) and +(0,.155,.387) ..
+ ++(0,-0.928,-0.629)
+ -- (\x, -0.928,-\z-.629)
+ .. controls +(0,.155,.387) and +(0,-.417,0) ..
+ ++(0,.928,.629)
+ .. controls +(0,.555,0) and +(0,0,.555) ..
+ ++(0,1,-1) 
+ .. controls +(0,0,-.139) and +(0,.0516,.129) ..
+ ++(0,-.072,-.371)
+ -- (\xx,0.928,-\zz-2+.629)
+ .. controls +(0,.0516,.129) and +(0,0,-.139) ..
+ ++(0,.072,.371)
+ .. controls +(0,0,.555) and +(0,.555,0) ..
+ ++(0,-1,1);
+}
+\foreach \t in {0.8,0.9,...,1} {
+\pgfmathsetmacro\x{6*\t^3 + 4 * 3 * \t^2*(1 - \t) + 2 * 3 * \t * (1 -\t)^2 + 0 * (1 - \t)^3}
+\pgfmathsetmacro\z{1*\t^3 + 1 * 3 * \t^2*(1 - \t) + -1 * 3 * \t * (1 -\t)^2 + -1 * (1 - \t)^3 + 2}
+\pgfmathsetmacro\tt{\t+.1}
+\pgfmathsetmacro\xx{6*\tt^3 + 4 * 3 * \tt^2*(1 - \tt) + 2 * 3 * \tt * (1 -\tt)^2 + 0 * (1 - \tt)^3}
+\pgfmathsetmacro\zz{1*\tt^3 + 1 * 3 * \tt^2*(1 - \tt) + -1 * 3 * \tt * (1 -\tt)^2 + -1 * (1 - \tt)^3 + 2}
+%\path[shade=axis, top color=red, bottom color=black]
+% If second control is relative, it is relative to second end point!
+\path[shade=axis, top color=black, bottom color=black, middle color=red!70!black]
+ (\xx,0,-\zz-2)
+ .. controls +(0,-.555,0) and +(0,0,-.555) ..
+ ++(0,-1,1)
+ .. controls +(0,0,.139) and +(0,-.0516,-.129) ..
+ ++(0,.072,.371)
+ -- (\x,-0.928,-\z-.629)
+ .. controls +(0,-.0516,-.129) and +(0,0,.139) ..
+ ++(0,-.072,-.371)
+ .. controls +(0,0,-.555) and +(0,-.555,0) ..
+ ++(0,1,-1)
+ .. controls +(0,+.417,0) and +(0,-.155,-.387) ..
+ ++(0,+0.928,+0.629)
+ -- (\xx, +0.928,-\zz-2+.629)
+ .. controls +(0,-.155,-.387) and +(0,.417,0) ..
+ ++(0,-.928,-.629)
+ -- (\xx,0,-\zz-2);
+\path[shade=axis, top color=green!50!black, bottom color=green!50!black, middle color=green]
+ (\xx,0,-\zz)
+ .. controls +(0,-.417,0) and +(0,.155,.387) ..
+ ++(0,-0.928,-0.629)
+ -- (\x, -0.928,-\z-.629)
+ .. controls +(0,.155,.387) and +(0,-.417,0) ..
+ ++(0,.928,.629)
+ .. controls +(0,.555,0) and +(0,0,.555) ..
+ ++(0,1,-1) 
+ .. controls +(0,0,-.139) and +(0,.0516,.129) ..
+ ++(0,-.072,-.371)
+ -- (\xx,0.928,-\zz-2+.629)
+ .. controls +(0,.0516,.129) and +(0,0,-.139) ..
+ ++(0,.072,.371)
+ .. controls +(0,0,.555) and +(0,.555,0) ..
+ ++(0,-1,1);
+
+\pgfmathsetmacro{\zz}{-\zz+2}
+\pgfmathsetmacro{\z}{-\z+2}
+% If second control is relative, it is relative to second end point!
+\path[shade=axis, top color=black, bottom color=black, middle color=red!70!black]
+ (\xx,0,-\zz-2)
+ .. controls +(0,-.555,0) and +(0,0,-.555) ..
+ ++(0,-1,1)
+ .. controls +(0,0,.139) and +(0,-.0516,-.129) ..
+ ++(0,.072,.371)
+ -- (\x,-0.928,-\z-.629)
+ .. controls +(0,-.0516,-.129) and +(0,0,.139) ..
+ ++(0,-.072,-.371)
+ .. controls +(0,0,-.555) and +(0,-.555,0) ..
+ ++(0,1,-1)
+ .. controls +(0,+.417,0) and +(0,-.155,-.387) ..
+ ++(0,+0.928,+0.629)
+ -- (\xx, +0.928,-\zz-2+.629)
+ .. controls +(0,-.155,-.387) and +(0,.417,0) ..
+ ++(0,-.928,-.629)
+ -- (\xx,0,-\zz-2);
+\path[shade=axis, top color=green!50!black, bottom color=green!50!black, middle color=green]
+ (\xx,0,-\zz)
+ .. controls +(0,-.417,0) and +(0,.155,.387) ..
+ ++(0,-0.928,-0.629)
+ -- (\x, -0.928,-\z-.629)
+ .. controls +(0,.155,.387) and +(0,-.417,0) ..
+ ++(0,.928,.629)
+ .. controls +(0,.555,0) and +(0,0,.555) ..
+ ++(0,1,-1) 
+ .. controls +(0,0,-.139) and +(0,.0516,.129) ..
+ ++(0,-.072,-.371)
+ -- (\xx,0.928,-\zz-2+.629)
+ .. controls +(0,.0516,.129) and +(0,0,-.139) ..
+ ++(0,.072,.371)
+ .. controls +(0,0,.555) and +(0,.555,0) ..
+ ++(0,-1,1);
+}
+\end{tikzpicture}
+\end{center}
+  
+
+  \section{Code Used to Generate this File}
+
+  To compile this file you just need to run \texttt{pdflatex} on it as many
+  times as necessary. Also, note that the order of some of the packages is
+  important, for example, \texttt{hyperref} should be loaded before
+  \texttt{bookmark}. Lastly, in order to access and make use of the multimedia
+  file embedded, you need to use the \href{http://get.adobe.com/reader/}
+  {Adobe Acrobat Reader}, for it seems to be the only one that implemented such
+  features.
+  
+  \fvset{fontsize=\tiny,numbers=left,numbersep=2pt}
+  \VerbatimInput{brain.tex}
+\end{multicols}
+%
+%
+\end{document}
+%%%
+% eNd
+%%%
+
