@@ -13,5 +13,5 @@ To compile this file you just need to run `pdflatex` on it as many
 times as necessary. Also, note that the order of some of the packages is
 important, for example, `hyperref` should be loaded before
 `bookmark`. Lastly, in order to access and make use of the multimedia
-file embedded, you need to use the [Adobe Acrobat Reader](http://get.adobe.com/reader/),
+file embedded in the PDF, you need to use the [Adobe Acrobat Reader](http://get.adobe.com/reader/),
 for it seems to be the only one that implemented such features.
